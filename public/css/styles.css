@@ -736,6 +736,7 @@ menu h2 {
 background: var(--primary);
 -webkit-text-fill-color: transparent;
 -webkit-background-clip: text;
+background-clip: text;
 margin-bottom:1rem;
 text-transform:uppercase;
 }
@@ -844,6 +845,7 @@ header article .title {
 background: var(--primary);
 -webkit-text-fill-color: transparent;
 -webkit-background-clip: text;
+background-clip: text;
 line-height:1.3;
 }
 
@@ -964,6 +966,7 @@ text-transform:uppercase;
 background: var(--primary);
 -webkit-text-fill-color: transparent;
 -webkit-background-clip: text;
+ background-clip: text;
 letter-spacing:1px;
 text-align:center;
 font-size:2.5em;
@@ -2210,6 +2213,7 @@ width: 100%;
     font-family: var(--title_font);
     background: var(--primary);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     position: relative;
 }
@@ -2466,6 +2470,7 @@ width: 100%;
     font-family: var(--title_font);
     background: var(--primary);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     position: relative;
     transform: translateZ(30px);
@@ -4449,6 +4454,7 @@ width: 100%;
     margin-bottom: 2rem;
     background: var(--primary);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     font-family: var(--title_font);
 }
@@ -4822,6 +4828,7 @@ width: 100%;
     margin-bottom: 0.1rem;
     background: linear-gradient(135deg, var(--theme-color), rgba(var(--theme-rgb), 0.8));
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -4855,6 +4862,7 @@ width: 100%;
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 2;
+    line-clamp: 2;
     -webkit-box-orient: vertical;
     line-height: 1.4;
 }
@@ -4917,6 +4925,7 @@ width: 100%;
     .session-info p {
         font-size: 0.8em;
         -webkit-line-clamp: 1;
+        line-clamp: 1;
     }
 }
 
@@ -6258,6 +6267,139 @@ nav {
     text-align: left;
 }
 
+.recordings-highlight {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 1.3rem;
+    padding: 1.55rem 1.85rem;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0) 50%),
+                linear-gradient(125deg, rgba(255, 80, 47, 0.18) 0%, rgba(105, 48, 235, 0.14) 45%, rgba(34, 193, 195, 0.12) 100%);
+    box-shadow: 0 16px 38px rgba(8, 8, 29, 0.24);
+    backdrop-filter: blur(12px);
+    overflow: hidden;
+}
+
+.recordings-highlight::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, rgba(255, 255, 255, 0.1), transparent 50%);
+    opacity: 0.4;
+    pointer-events: none;
+}
+
+.recordings-icon {
+    position: relative;
+    z-index: 1;
+    width: 58px;
+    height: 58px;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.14);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.28);
+}
+
+.recordings-icon i {
+    font-size: 1.55rem;
+    color: #fff;
+}
+
+.recordings-content {
+    position: relative;
+    z-index: 1;
+    flex: 1;
+    max-width: 500px;
+}
+
+#recordings .title.medium {
+    font-size: clamp(1.85rem, 4vw, 2.3rem);
+    margin-bottom: 0.35rem;
+}
+
+#recordings.section-container {
+    padding: 2.6rem 2rem 2.85rem;
+}
+
+.recordings-eyebrow {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: rgba(255, 255, 255, 0.56);
+    margin-bottom: 0.55rem;
+    font-weight: 600;
+}
+
+.recordings-content p {
+    color: rgba(255, 255, 255, 0.78);
+    margin-top: 0.45rem;
+    font-size: 0.9rem;
+    line-height: 1.45;
+}
+
+.recordings-link {
+    position: relative;
+    z-index: 1;
+    margin-left: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.45rem;
+    border-radius: 999px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(229, 229, 255, 0.88));
+    color: #0f1528 !important;
+    box-shadow: 0 9px 22px rgba(15, 21, 40, 0.21);
+    text-transform: none;
+    font-size: 0.88rem;
+    font-weight: 600;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.recordings-link i {
+    font-size: 1rem;
+    transition: transform 0.3s ease;
+}
+
+.recordings-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 34px rgba(15, 21, 40, 0.28);
+}
+
+.recordings-link:hover i {
+    transform: translateX(4px);
+}
+
+:root.light-mode .recordings-highlight {
+    border-color: rgba(9, 12, 25, 0.08);
+    background: linear-gradient(120deg, rgba(255, 255, 255, 0.92) 0%, rgba(240, 244, 255, 0.75) 55%, rgba(237, 247, 255, 0.7) 100%);
+    box-shadow: 0 18px 42px rgba(32, 43, 76, 0.14);
+}
+
+:root.light-mode .recordings-highlight::after {
+    opacity: 0.22;
+}
+
+:root.light-mode .recordings-icon {
+    background: rgba(15, 21, 40, 0.06);
+    box-shadow: inset 0 0 0 1px rgba(15, 21, 40, 0.08);
+}
+
+:root.light-mode .recordings-icon i {
+    color: var(--primary-color);
+}
+
+:root.light-mode .recordings-eyebrow {
+    color: rgba(15, 21, 40, 0.55);
+}
+
+:root.light-mode .recordings-content p {
+    color: rgba(15, 21, 40, 0.68);
+}
+
 .community-cta {
     background: linear-gradient(135deg, rgba(248, 31, 1, 0.05) 0%, rgba(238, 7, 110, 0.05) 100%);
     border-radius: 15px;
@@ -6313,6 +6455,27 @@ nav {
 }
 
 @media (max-width: 768px) {
+    .recordings-highlight {
+        flex-direction: column;
+        text-align: center;
+        padding: 1.45rem 1.7rem;
+        gap: 1.1rem;
+    }
+
+    .recordings-link {
+        width: 100%;
+        justify-content: center;
+        margin-left: 0;
+    }
+
+    #recordings .title.medium {
+        font-size: clamp(1.65rem, 6vw, 1.9rem);
+    }
+
+    #recordings.section-container {
+        padding: 2.2rem 1.6rem 2.4rem;
+    }
+
     .cta-buttons {
         flex-direction: column;
         align-items: center;
@@ -6321,5 +6484,25 @@ nav {
     .cta-buttons .btn {
         width: 100%;
         max-width: 250px;
+    }
+}
+
+@media (max-width: 540px) {
+    .recordings-highlight {
+        padding: 1.3rem 1.35rem;
+    }
+
+    .recordings-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 16px;
+    }
+
+    .recordings-icon i {
+        font-size: 1.22rem;
+    }
+
+    #recordings.section-container {
+        padding: 2rem 1.2rem 2.2rem;
     }
 }

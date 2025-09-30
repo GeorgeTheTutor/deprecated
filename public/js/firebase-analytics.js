@@ -181,10 +181,8 @@ if (typeof module !== 'undefined' && module.exports) {
   module.exports = FirebaseAnalyticsService;
 }
 
-// Create global instance
 window.analyticsService = new FirebaseAnalyticsService();
 
-// Export for module systems
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = FirebaseAnalyticsService;
 }
