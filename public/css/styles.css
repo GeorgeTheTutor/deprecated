@@ -141,7 +141,6 @@ social-icons a:hover {
     color: var(--text-dark);
 }
 
-
 .btn_1:hover {
     color: var(--text-dark);
 }
@@ -673,7 +672,50 @@ position:relative;
 white-space:nowrap;
 }
 
-.logo { font-size:1.6em; }
+.brand-lockup {
+display:flex;
+align-items:center;
+gap:0.75rem;
+}
+
+.brand-link {
+color:inherit;
+text-decoration:none;
+text-transform:none;
+}
+
+.brand-link:hover {
+color:inherit;
+opacity:0.9;
+}
+
+.brand-mark {
+    width:56px;
+    height:56px;
+    object-fit:contain;
+    border-radius:12px;
+    transition:transform 0.3s ease;
+}
+
+.brand-link:hover .brand-mark {
+transform:scale(1.05);
+}
+
+.brand-mark-large {
+    width:96px;
+    height:96px;
+}
+
+.menu-brand {
+margin-bottom:2rem;
+}
+
+.footer-brand-lockup .brand-mark {
+    width:64px;
+    height:64px;
+}
+
+.logo { font-size:1.8em; }
 
 nav .active {
 color:var(--primary_dark) !important;
@@ -729,6 +771,10 @@ box-shadow: -2px 0px 10px rgba(0,0,0,0.8);
 }
 
 menu .logo {
+margin-bottom:0;
+}
+
+menu .brand-lockup {
 margin-bottom:2rem;
 }
 
@@ -1185,6 +1231,10 @@ gap:1.5rem;
 
 .footer-logo {
 margin-bottom:1rem;
+}
+
+.footer-brand-lockup {
+margin-bottom:0.75rem;
 }
 
 .footer-logo .logo {
@@ -6012,6 +6062,18 @@ nav {
     animation: fadeInUp 1s ease forwards;
     position: relative;
     white-space: nowrap;
+}
+
+.loading-logo.brand-lockup {
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+    text-align: center;
+}
+
+.loading-logo .brand-mark-large {
+    box-shadow: none;
 }
 
 .loading-logo .stroke {
