@@ -1,4 +1,4 @@
-const ham = document.querySelector('.ham');
+﻿const ham = document.querySelector('.ham');
 const menuEl = document.getElementById('menu');
 const overlay = document.querySelector('.overlay');
 const closeBtn = document.querySelector('.close');
@@ -84,12 +84,12 @@ function toggleFaq(faqItem, show = null) {
             if (!faqItem.classList.contains('active')) {
                 answer.style.display = 'none';
             }
-    }, 400);
+        }, 400);
     }
 }
 faqItems.forEach(item => {
     item.addEventListener('click', (e) => {
-    if (e.target.closest('.faq-answer')) return;
+        if (e.target.closest('.faq-answer')) return;
         closeAllFaqs(item);
         toggleFaq(item);
     });
@@ -141,17 +141,21 @@ function animateOuterCursor() {
 animateOuterCursor();
 document.addEventListener('DOMContentLoaded', () => {
   const loadingOverlay = document.querySelector('.loading-overlay');
+  
+  if (sessionStorage.getItem('siteLoaded')) {
+    if (loadingOverlay) loadingOverlay.style.display = 'none';
+  }
+
   const progressFill = document.querySelector('.loading-progress-fill');
   const percentageText = document.querySelector('.loading-percentage');
   
-  if (loadingOverlay && progressFill && percentageText) {
+  if (loadingOverlay && progressFill && percentageText && !sessionStorage.getItem('siteLoaded')) {
     let progress = 0;
-    const duration = 3000;
+    const duration = 2000;
     const interval = 50;
     const increment = (interval / duration) * 100;
     
     const progressInterval = setInterval(() => {
-      
       const easeOutProgress = 1 - Math.pow(1 - (progress / 100), 3);
       const actualProgress = Math.min(easeOutProgress * 100, 95);
       
@@ -163,14 +167,13 @@ document.addEventListener('DOMContentLoaded', () => {
       if (progress >= 100) {
         clearInterval(progressInterval);
         
-        
         setTimeout(() => {
           progressFill.style.width = '100%';
           percentageText.textContent = '100%';
           
-          
           setTimeout(() => {
             loadingOverlay.classList.add('loading-hidden');
+            sessionStorage.setItem('siteLoaded', 'true');
             setTimeout(() => {
               loadingOverlay.style.display = 'none';
             }, 800);
@@ -178,7 +181,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 200);
       }
     }, interval);
-    
     
     window.addEventListener('load', () => {
       setTimeout(() => {
@@ -272,14 +274,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
   function updateThemeIcon() {
+    if (!themeToggle) return;
     if (htmlElement.classList.contains('light-mode')) {
-    themeToggle.textContent = '☀️';
+      themeToggle.textContent = '☀️';
     } else {
-    themeToggle.textContent = '🌙';
+      themeToggle.textContent = '🌙';
     }
   }
   updateThemeIcon();
-  themeToggle.addEventListener('click', () => {
+  if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
     htmlElement.classList.toggle('light-mode');
     const newTheme = htmlElement.classList.contains('light-mode') ? 'light' : 'dark';
     localStorage.setItem('theme', newTheme);
@@ -290,6 +294,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const currentLinkColor = newTheme === 'dark' ? linkColorDark : linkColorLight;
     initializeParticles(particleColors, currentLinkColor);
   });
+  }
   const aboutContent = document.querySelector('.about-content');
   if (aboutContent) {
     aboutContent.addEventListener('mousemove', (e) => {
@@ -327,7 +332,6 @@ document.addEventListener('DOMContentLoaded', () => {
           const target = parseInt(stat.getAttribute('data-target'));
           const originalText = stat.textContent;
           let suffix = '';
-          
           
           if (originalText.includes('+')) {
               suffix = '+';
@@ -390,11 +394,12 @@ function updateTestimonialSlider() {
     }
 }
 const modal = document.getElementById('testimonialModal');
-const modalContent = modal.querySelector('.modal-content');
-const modalClose = modal.querySelector('.modal-close');
-const modalOverlay = modal.querySelector('.modal-overlay');
-const body = document.body;
-document.querySelectorAll('.testimonial-card').forEach((card, index) => {
+if (modal) {
+  const modalContent = modal.querySelector('.modal-content');
+  const modalClose = modal.querySelector('.modal-close');
+  const modalOverlay = modal.querySelector('.modal-overlay');
+  const body = document.body;
+  document.querySelectorAll('.testimonial-card').forEach((card, index) => {
     card.addEventListener('click', () => {
         stopTestimonialSlider();
         const title = card.querySelector('h3').textContent;
@@ -423,9 +428,231 @@ document.addEventListener('keydown', (e) => {
 modalContent.addEventListener('click', (e) => {
     e.stopPropagation();
 });
+}
 document.addEventListener('DOMContentLoaded', () => {
     initTestimonialSlider();
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    const track = document.querySelector('.carousel-track');
+    const originalCards = Array.from(document.querySelectorAll('.carousel-card'));
+    const prevBtn = document.querySelector('.carousel-prev');
+    const nextBtn = document.querySelector('.carousel-next');
+    const dots = document.querySelectorAll('.carousel-dot');
+    const carouselSection = document.querySelector('.masterclass-carousel-section');
+    const carouselContainer = document.querySelector('.carousel-container');
+    
+    if (!track || originalCards.length === 0) return;
+    
+    let currentIndex = 0;
+    let cardsPerView = 3;
+    let isAnimating = false;
+    let autoScrollInterval;
+    let observers = [];
+    let touchStartX = 0;
+    let touchEndX = 0;
+    let isDragging = false;
+    
+    function setupInfiniteScroll() {
+        track.querySelectorAll('.carousel-card-clone').forEach(el => el.remove());
+        
+        originalCards.forEach(card => {
+            const clone = card.cloneNode(true);
+            clone.classList.add('carousel-card-clone');
+            track.appendChild(clone);
+        });
+        
+        for (let i = originalCards.length - 1; i >= 0; i--) {
+            const clone = originalCards[i].cloneNode(true);
+            clone.classList.add('carousel-card-clone');
+            track.insertBefore(clone, track.firstChild);
+        }
+        
+        setupVideoPreviewHover();
+    }
+    
+    function setupVideoPreviewHover() {
+        const allCards = document.querySelectorAll('.carousel-card, .carousel-card-clone');
+        
+        observers.forEach(observer => observer.disconnect());
+        observers = [];
+        
+        allCards.forEach(card => {
+            const video = card.querySelector('.carousel-video-preview');
+            if (video) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting && !isDragging) {
+                            video.play().catch(() => {});
+                        } else {
+                            video.pause();
+                        }
+                    });
+                }, { threshold: 0.5 });
+                
+                observer.observe(card);
+                observers.push(observer);
+                
+                if (window.innerWidth > 768) {
+                    card.addEventListener('mouseenter', () => {
+                        video.play().catch(() => {});
+                    });
+                    
+                    card.addEventListener('mouseleave', () => {
+                        if (!isCardInView(card)) {
+                            video.pause();
+                        }
+                    });
+                }
+            }
+        });
+    }
+    
+    function isCardInView(card) {
+        const rect = card.getBoundingClientRect();
+        const containerRect = track.parentElement.getBoundingClientRect();
+        return rect.left >= containerRect.left && rect.right <= containerRect.right;
+    }
+    
+    function updateCardsPerView() {
+        if (window.innerWidth <= 768) {
+            cardsPerView = 1;
+        } else if (window.innerWidth <= 1200) {
+            cardsPerView = 2;
+        } else {
+            cardsPerView = 3;
+        }
+    }
+    
+    function getCardWidth() {
+        const card = originalCards[0];
+        const gap = window.innerWidth <= 480 ? 16 : window.innerWidth <= 768 ? 20 : 32;
+        return card.offsetWidth + gap;
+    }
+    
+    function updateCarousel(smooth = true) {
+        const cardWidth = getCardWidth();
+        const offset = -(currentIndex + originalCards.length) * cardWidth;
+        
+        if (smooth) {
+            track.style.transition = 'transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+        } else {
+            track.style.transition = 'none';
+        }
+        
+        track.style.transform = `translateX(${offset}px)`;
+        
+        const dotIndex = ((currentIndex % originalCards.length) + originalCards.length) % originalCards.length;
+        dots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === dotIndex);
+        });
+    }
+    
+    function handleTransitionEnd() {
+        if (currentIndex >= originalCards.length) {
+            currentIndex = 0;
+            updateCarousel(false);
+        } else if (currentIndex < 0) {
+            currentIndex = originalCards.length - 1;
+            updateCarousel(false);
+        }
+        isAnimating = false;
+    }
+    
+    function next() {
+        if (isAnimating) return;
+        isAnimating = true;
+        currentIndex++;
+        updateCarousel(true);
+    }
+    
+    function prev() {
+        if (isAnimating) return;
+        isAnimating = true;
+        currentIndex--;
+        updateCarousel(true);
+    }
+    
+    function handleTouchStart(e) {
+        touchStartX = e.touches[0].clientX;
+        isDragging = true;
+        stopAutoScroll();
+    }
+    
+    function handleTouchMove(e) {
+        if (!isDragging) return;
+        touchEndX = e.touches[0].clientX;
+    }
+    
+    function handleTouchEnd() {
+        if (!isDragging) return;
+        isDragging = false;
+        
+        const swipeThreshold = 50;
+        const diff = touchStartX - touchEndX;
+        
+        if (Math.abs(diff) > swipeThreshold) {
+            if (diff > 0) {
+                next();
+            } else {
+                prev();
+            }
+        }
+        
+        startAutoScroll();
+        touchStartX = 0;
+        touchEndX = 0;
+    }
+    
+    prevBtn.addEventListener('click', prev);
+    nextBtn.addEventListener('click', next);
+    
+    track.addEventListener('transitionend', handleTransitionEnd);
+    
+    carouselContainer.addEventListener('touchstart', handleTouchStart, { passive: true });
+    carouselContainer.addEventListener('touchmove', handleTouchMove, { passive: true });
+    carouselContainer.addEventListener('touchend', handleTouchEnd);
+    
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+            if (isAnimating) return;
+            isAnimating = true;
+            currentIndex = index;
+            updateCarousel(true);
+        });
+    });
+    
+    function startAutoScroll() {
+        stopAutoScroll();
+        autoScrollInterval = setInterval(() => {
+            next();
+        }, 4000);
+    }
+    
+    function stopAutoScroll() {
+        clearInterval(autoScrollInterval);
+    }
+    
+    if (window.innerWidth > 768) {
+        carouselSection.addEventListener('mouseenter', stopAutoScroll);
+        carouselSection.addEventListener('mouseleave', startAutoScroll);
+    }
+    
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            updateCardsPerView();
+            updateCarousel(false);
+        }, 250);
+    });
+    
+    updateCardsPerView();
+    setupInfiniteScroll();
+    updateCarousel(false);
+    startAutoScroll();
+});
+
 document.addEventListener('DOMContentLoaded', () => {
     try {
         console.log('Website initialized');

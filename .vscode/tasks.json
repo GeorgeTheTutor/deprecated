@@ -1,0 +1,14 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "append_css",
+			"type": "shell",
+			"command": "echo",
+			"args": [
+				"#tsparticles {\n    position: fixed;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    z-index: 0;\n    pointer-events: none;\n}\n",
+				"c:\\Users\\nav6i\\Downloads\\deprecated\\public\\css\\recordings.css"
+			]
+		}
+	]
+}

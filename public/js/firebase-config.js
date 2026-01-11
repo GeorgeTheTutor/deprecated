@@ -1,4 +1,4 @@
-const firebaseConfig = {
+﻿const firebaseConfig = {
   apiKey: "AIzaSyDyj28dcdSnicFT3XRcY4RNtj6ftASaSPc",
   authDomain: "deprecated-2cd9a.firebaseapp.com",
   projectId: "deprecated-2cd9a",

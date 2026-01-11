@@ -1,4 +1,4 @@
-class FirebaseAnalyticsService {
+﻿class FirebaseAnalyticsService {
   constructor() {
     this.analytics = window.firebaseAnalytics;
     this.isInitialized = false;

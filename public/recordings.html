@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <link rel="stylesheet" href="./css/styles.css">
   <link rel="stylesheet" href="./css/recordings.css">
-    <link rel="icon" type="image/png" href="./assets/images/logo.png.png">
+    <link rel="icon" type="image/png" href="./assets/images/logo.png">
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,12 +18,11 @@
   <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.9.3/tsparticles.bundle.min.js"></script>
 </head>
 <body>
-  <div id="particles-js"></div>
-
+  <div id="tsparticles"></div>
   <nav>
       <section class="flex_content">
           <a href="index.html" class="brand-lockup brand-link" aria-label="GeorgeTheTutor home">
-              <img src="./assets/images/logo.png.png" alt="GeorgeTheTutor logo" class="brand-mark">
+              <img src="./assets/images/logo.png" alt="GeorgeTheTutor logo" class="brand-mark">
               <strong class="logo"><em class="stroke">G</em>eorge.</strong>
           </a>
       </section>
@@ -34,8 +33,7 @@
           <a href="index.html#testimonials">Testimonials</a>
           <a href="#" class="active">Recordings</a>
       </section>
-      <section class="flex_content nav-actions">
-          <a href="index.html" class="back-home-link"><i class="fas fa-arrow-left"></i><span>Home</span></a>
+      <section class="flex_content">
           <a href="javascript:void(0)" class="ham"><i class="fas fa-bars"></i></a>
       </section>
   </nav>
@@ -43,14 +41,14 @@
   <menu id="menu">
       <a href="javascript:void(0)" class="close"><i class="fas fa-times"></i></a>
       <div class="brand-lockup menu-brand">
-          <img src="./assets/images/logo.png.png" alt="GeorgeTheTutor logo" class="brand-mark">
+          <img src="./assets/images/logo.png" alt="GeorgeTheTutor logo" class="brand-mark">
           <strong class="logo"><em class="stroke">G</em>eorge.</strong>
       </div>
       <br><br>
       <h2>Your Partner in IBDP Success</h2>
       <p>Ready to take your IBDP journey to the next level? Apply today and get the best mentoring for all your subjects!</p>
       
-      <h3 style="color:var(--white); margin-bottom:1rem; font-size:1.2em;">Contact Us</h3>
+      <h3 style="color:var(--white); margin-bottom:0.5rem; margin-top:0.5rem; font-size:1.1em;">Contact Us</h3>
       <ul>
           <li><a href="mailto:services@georgethetutor.com"><i class="fas fa-envelope"></i>services@georgethetutor.com</a></li>
           <li><a href="https://discord.com/users/csg_reaper" target="_blank"><i class="fab fa-discord"></i>csg_reaper</a></li>
@@ -58,9 +56,13 @@
       </ul>
 
       <div class="designer-credit">
-          Designed and developed by 
-          <span class="designer-name">Navadarshanth S</span>
-          <span class="designer-separator"></span>
+        <div class="designer-name">Navadarshanth S</div>
+        <div class="designer-subtitle">Web Designer & Developer</div>
+        <div class="designer-decoration">
+          <span class="designer-dot"></span>
+          <span class="designer-line"></span>
+          <span class="designer-dot"></span>
+        </div>
       </div>
   </menu>
   
@@ -68,15 +70,18 @@
       <div class="video-layout">
           <div class="main-video-section">
               <div class="main-video-player">
-                  <iframe id="mainVideoFrame" src="https://drive.google.com/file/d/1nyCj_ttKCDRWfEOSDeJfK0uGX5uAIZkI/preview?usp=embed_facebook" allow="autoplay; fullscreen" allowfullscreen sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>
+                  <video id="mainVideoFrame" controls>
+                      <source src="https://firebasestorage.googleapis.com/v0/b/deprecated-2cd9a.firebasestorage.app/o/Business%20Management-004.mp4?alt=media&token=4c5be848-25fc-4db1-8539-a3dc1f73b4e1" type="video/mp4">
+                      Your browser does not support the video tag.
+                  </video>
               </div>
               <div class="main-video-info">
-                  <h2 id="mainVideoTitle">IBDP Tutorial Session 1</h2>
+                  <h2 id="mainVideoTitle">Business Management Masterclass</h2>
                   <div class="video-meta">
-                      <span id="mainVideoDuration"><i class="fas fa-clock"></i> 45 min</span>
-                      <span id="mainVideoDate"><i class="fas fa-calendar"></i> Recent</span>
+                      <span id="mainVideoDuration"><i class="fas fa-clock"></i> 1 hour 44 minutes</span>
+                      <span id="mainVideoInstructors"><i class="fas fa-user"></i> Yash Baisya</span>
                   </div>
-                  <p id="mainVideoDescription">Comprehensive overview of IB curriculum fundamentals and study strategies.</p>
+                  <p id="mainVideoDescription">Complete IB BM preparation strategy, 10 Marker structure, IA help and exact methods to score the highest on each question type.</p>
               </div>
           </div>
 
@@ -84,69 +89,99 @@
               <h3 class="sidebar-title">All Recordings</h3>
               <div class="video-list">
 
-                  <div class="video-item active" data-video-id="1nyCj_ttKCDRWfEOSDeJfK0uGX5uAIZkI" data-title="IBDP Tutorial Session 1" data-description="Comprehensive overview of IB curriculum fundamentals and study strategies." data-duration="45 min">
+                  <div class="video-item active" data-video-url="https://firebasestorage.googleapis.com/v0/b/deprecated-2cd9a.firebasestorage.app/o/Business%20Management-004.mp4?alt=media&token=4c5be848-25fc-4db1-8539-a3dc1f73b4e1" data-title="Business Management Masterclass" data-description="Complete IB BM preparation strategy, 10 Marker structure, IA help and exact methods to score the highest on each question type." data-duration="1 hour 44 minutes" data-instructors="Yash Baisya">
                       <div class="video-thumbnail">
-                          <img src="https://drive.google.com/thumbnail?id=1nyCj_ttKCDRWfEOSDeJfK0uGX5uAIZkI&sz=w320" alt="Session 1" onerror="this.style.display='none'; this.parentNode.innerHTML='<i class=\'fas fa-play-circle\'></i>'">
-                          <span class="video-duration">45 min</span>
+                          <video class="sidebar-video-preview" muted playsinline>
+                              <source src="https://firebasestorage.googleapis.com/v0/b/deprecated-2cd9a.firebasestorage.app/o/Business%20Management-004.mp4?alt=media&token=4c5be848-25fc-4db1-8539-a3dc1f73b4e1#t=30" type="video/mp4">
+                          </video>
+                          <div class="thumbnail-overlay">
+                              <i class='fas fa-play-circle'></i>
+                          </div>
+                          <span class="video-duration">1h 44m</span>
                       </div>
                       <div class="video-info">
-                          <h4>IBDP Tutorial Session 1</h4>
-                          <p>Comprehensive overview of IB curriculum fundamentals and study strategies.</p>
+                          <h4>Business Management Masterclass</h4>
+                          <p>Complete IB BM preparation strategy, 10 Marker structure, IA help and exact methods to score the highest on each question type.</p>
                       </div>
                   </div>
 
-                  <div class="video-item" data-video-id="1hGhb3wqIr2pHRXp4JKSLN4hnrhr-8ZpH" data-title="IBDP Tutorial Session 2" data-description="Advanced problem-solving techniques and exam preparation strategies." data-duration="50 min">
+                  <div class="video-item" data-video-url="https://firebasestorage.googleapis.com/v0/b/deprecated-2cd9a.firebasestorage.app/o/Economics.mp4?alt=media&token=acdbd169-be99-4bbd-867c-fce2254dfab4" data-title="Economics Masterclass" data-description="Fastest and most-scoring way to get a 7, Paper 2 15 Marker structure, All graphs for IB Economics." data-duration="43 minutes" data-instructors="Yash Baisya">
                       <div class="video-thumbnail">
-                          <img src="https://drive.google.com/thumbnail?id=1hGhb3wqIr2pHRXp4JKSLN4hnrhr-8ZpH&sz=w320" alt="Session 2" onerror="this.style.display='none'; this.parentNode.innerHTML='<i class=\'fas fa-play-circle\'></i>'">
-                          <span class="video-duration">50 min</span>
+                          <video class="sidebar-video-preview" muted playsinline>
+                              <source src="https://firebasestorage.googleapis.com/v0/b/deprecated-2cd9a.firebasestorage.app/o/Economics.mp4?alt=media&token=acdbd169-be99-4bbd-867c-fce2254dfab4#t=20" type="video/mp4">
+                          </video>
+                          <div class="thumbnail-overlay">
+                              <i class='fas fa-play-circle'></i>
+                          </div>
+                          <span class="video-duration">43m</span>
                       </div>
                       <div class="video-info">
-                          <h4>IBDP Tutorial Session 2</h4>
-                          <p>Advanced problem-solving techniques and exam preparation strategies.</p>
+                          <h4>Economics Masterclass</h4>
+                          <p>Fastest and most-scoring way to get a 7, Paper 2 15 Marker structure, All graphs for IB Economics.</p>
                       </div>
                   </div>
 
-                  <div class="video-item" data-video-id="18ha8t6Zi_j8Grhy_sc487bTuNZAwqUA0" data-title="IBDP Tutorial Session 3" data-description="Subject-specific guidance and personalized learning approaches." data-duration="42 min">
+                  <div class="video-item" data-video-url="https://firebasestorage.googleapis.com/v0/b/deprecated-2cd9a.firebasestorage.app/o/English%20A%20Language%20and%20Literature.mp4?alt=media&token=95ff1977-04a5-43dc-973b-c14f274f6c5a" data-title="English A LnL Masterclass" data-description="IB English Paper 1 structure, Paper 2 prep strategy, Biggest errors committed by students, Fastest way to reach a 7." data-duration="1 hour 29 minutes" data-instructors="Yash Baisya">
                       <div class="video-thumbnail">
-                          <img src="https://drive.google.com/thumbnail?id=18ha8t6Zi_j8Grhy_sc487bTuNZAwqUA0&sz=w320" alt="Session 3" onerror="this.style.display='none'; this.parentNode.innerHTML='<i class=\'fas fa-play-circle\'></i>'">
-                          <span class="video-duration">42 min</span>
+                          <video class="sidebar-video-preview" muted playsinline>
+                              <source src="https://firebasestorage.googleapis.com/v0/b/deprecated-2cd9a.firebasestorage.app/o/English%20A%20Language%20and%20Literature.mp4?alt=media&token=95ff1977-04a5-43dc-973b-c14f274f6c5a#t=40" type="video/mp4">
+                          </video>
+                          <div class="thumbnail-overlay">
+                              <i class='fas fa-play-circle'></i>
+                          </div>
+                          <span class="video-duration">1h 29m</span>
                       </div>
                       <div class="video-info">
-                          <h4>IBDP Tutorial Session 3</h4>
-                          <p>Subject-specific guidance and personalized learning approaches.</p>
+                          <h4>English A LnL Masterclass</h4>
+                          <p>IB English Paper 1 structure, Paper 2 prep strategy, Biggest errors committed by students, Fastest way to reach a 7.</p>
                       </div>
                   </div>
 
-                  <div class="video-item" data-video-id="1e5uIAR57k_UwSJ7s1zG7cRu3O3gI81ib" data-title="IBDP Tutorial Session 4" data-description="Time management and organization skills for IB success." data-duration="38 min">
+                  <div class="video-item" data-video-url="https://firebasestorage.googleapis.com/v0/b/deprecated-2cd9a.firebasestorage.app/o/Paper%202%20-%20Mathematics%20AA.mp4?alt=media&token=350852a9-2bcc-4793-9892-de98338e571d" data-title="Mathematics AA Masterclass" data-description="IB Math AA Most important topics, Preparation strategy and approach to answer most questions." data-duration="2 hour 21 minutes" data-instructors="Adhavan Diwakar Vidya and Shimon John Augustine">
                       <div class="video-thumbnail">
-                          <img src="https://drive.google.com/thumbnail?id=1e5uIAR57k_UwSJ7s1zG7cRu3O3gI81ib&sz=w320" alt="Session 4" onerror="this.style.display='none'; this.parentNode.innerHTML='<i class=\'fas fa-play-circle\'></i>'">
-                          <span class="video-duration">38 min</span>
+                          <video class="sidebar-video-preview" muted playsinline>
+                              <source src="https://firebasestorage.googleapis.com/v0/b/deprecated-2cd9a.firebasestorage.app/o/Paper%202%20-%20Mathematics%20AA.mp4?alt=media&token=350852a9-2bcc-4793-9892-de98338e571d#t=50" type="video/mp4">
+                          </video>
+                          <div class="thumbnail-overlay">
+                              <i class='fas fa-play-circle'></i>
+                          </div>
+                          <span class="video-duration">2h 21m</span>
                       </div>
                       <div class="video-info">
-                          <h4>IBDP Tutorial Session 4</h4>
-                          <p>Time management and organization skills for IB success.</p>
+                          <h4>Mathematics AA Masterclass</h4>
+                          <p>IB Math AA Most important topics, Preparation strategy and approach to answer most questions.</p>
                       </div>
                   </div>
 
-                  <div class="video-item" data-video-id="1-m-_PE-OET26oH6ETfvy_9IMuBE0T14N" data-title="IBDP Tutorial Session 5" data-description="Extended Essay guidance and research methodology." data-duration="55 min">
+                  <div class="video-item" data-video-url="https://firebasestorage.googleapis.com/v0/b/deprecated-2cd9a.firebasestorage.app/o/Paper%202%20-%20Mathematics%20AA.mp4?alt=media&token=350852a9-2bcc-4793-9892-de98338e571d" data-title="Mathematics AA Past Paper Question Solutions" data-description="The exact approach to counter the most difficult and pressing problems in Math AA Exams." data-duration="1 hour 47 minutes" data-instructors="Adhavan Diwakar Vidya and Shimon John Augustine">
                       <div class="video-thumbnail">
-                          <img src="https://drive.google.com/thumbnail?id=1-m-_PE-OET26oH6ETfvy_9IMuBE0T14N&sz=w320" alt="Session 5" onerror="this.style.display='none'; this.parentNode.innerHTML='<i class=\'fas fa-play-circle\'></i>'">
-                          <span class="video-duration">55 min</span>
+                          <video class="sidebar-video-preview" muted playsinline>
+                              <source src="https://firebasestorage.googleapis.com/v0/b/deprecated-2cd9a.firebasestorage.app/o/Paper%202%20-%20Mathematics%20AA.mp4?alt=media&token=350852a9-2bcc-4793-9892-de98338e571d#t=100" type="video/mp4">
+                          </video>
+                          <div class="thumbnail-overlay">
+                              <i class='fas fa-play-circle'></i>
+                          </div>
+                          <span class="video-duration">1h 47m</span>
                       </div>
                       <div class="video-info">
-                          <h4>IBDP Tutorial Session 5</h4>
-                          <p>Extended Essay guidance and research methodology.</p>
+                          <h4>Mathematics AA Past Paper Question Solutions</h4>
+                          <p>The exact approach to counter the most difficult and pressing problems in Math AA Exams.</p>
                       </div>
                   </div>
 
-                  <div class="video-item" data-video-id="1psea_f7R_j2LEzJy4zSrGAbmgXJ7s3iE" data-title="IBDP Tutorial Session 6" data-description="Theory of Knowledge (TOK) and Critical Thinking Development." data-duration="48 min">
+                  <div class="video-item" data-video-url="https://firebasestorage.googleapis.com/v0/b/deprecated-2cd9a.firebasestorage.app/o/Physics.mp4?alt=media&token=fe6e791b-3f8a-436d-b347-e9a89d18b08b" data-title="IB Physics Masterclass" data-description="The most important topics in IB Physics, How to prepare for IB Physics exam to get a 7." data-duration="36 minutes" data-instructors="Rishabh Rajeev Palany and Adhavan Diwakar Vidya">
                       <div class="video-thumbnail">
-                          <img src="https://drive.google.com/thumbnail?id=1psea_f7R_j2LEzJy4zSrGAbmgXJ7s3iE&sz=w320" alt="Session 6" onerror="this.style.display='none'; this.parentNode.innerHTML='<i class=\'fas fa-play-circle\'></i>'">
-                          <span class="video-duration">48 min</span>
+                          <video class="sidebar-video-preview" muted playsinline>
+                              <source src="https://firebasestorage.googleapis.com/v0/b/deprecated-2cd9a.firebasestorage.app/o/Physics.mp4?alt=media&token=fe6e791b-3f8a-436d-b347-e9a89d18b08b#t=15" type="video/mp4">
+                          </video>
+                          <div class="thumbnail-overlay">
+                              <i class='fas fa-play-circle'></i>
+                          </div>
+                          <span class="video-duration">36m</span>
                       </div>
                       <div class="video-info">
-                          <h4>IBDP Tutorial Session 6</h4>
-                          <p>Theory of Knowledge (TOK) and Critical Thinking Development.</p>
+                          <h4>IB Physics Masterclass</h4>
+                          <p>The most important topics in IB Physics, How to prepare for IB Physics exam to get a 7.</p>
                       </div>
                   </div>
 
@@ -160,6 +195,9 @@
   <button id="back-to-top" title="Back to top">
       <i class="fas fa-chevron-up"></i>
   </button>
+
+  <div class="custom-cursor inner"></div>
+  <div class="custom-cursor outer"></div>
 
   <script src="./js/firebase-config.js"></script>
   <script src="./js/firebase-analytics.js"></script>

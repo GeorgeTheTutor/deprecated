@@ -1,4 +1,4 @@
-function initializeAnalytics() {
+﻿function initializeAnalytics() {
     const waitForAnalytics = () => {
         if (window.analyticsService && window.analyticsService.isInitialized) {
             setupAnalyticsTracking();

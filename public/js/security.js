@@ -1,23 +1,16 @@
-class SecurityManager {
+﻿class SecurityManager {
   constructor() {
     this.initSecurity();
   }
 
   initSecurity() {
-    this.disableRightClick();
     this.disableCopying();
     this.disableDevTools();
     this.disableKeyboardShortcuts();
     this.disableTextSelection();
+    this.disableRightClick();
     this.detectDevTools();
     console.log('Security measures activated');
-  }
-
-  disableRightClick() {
-    document.addEventListener('contextmenu', (e) => {
-      e.preventDefault();
-      return false;
-    });
   }
 
   disableCopying() {
@@ -50,6 +43,13 @@ class SecurityManager {
 
     document.onselectstart = () => false;
     document.ondragstart = () => false;
+  }
+
+  disableRightClick() {
+    document.addEventListener('contextmenu', (e) => {
+      e.preventDefault();
+      return false;
+    });
   }
 
   disableKeyboardShortcuts() {
@@ -162,7 +162,6 @@ class SecurityManager {
 document.addEventListener('DOMContentLoaded', () => {
   const security = new SecurityManager();
   security.addCSSProtection();
-  security.clearConsole();
 });
 
 if (window.analytics && window.analytics.trackEvent) {
@@ -176,10 +175,5 @@ if (window.analytics && window.analytics.trackEvent) {
     }
   });
 
-  document.addEventListener('contextmenu', (e) => {
-    window.analytics.trackEvent('security_violation', {
-      attempt_type: 'right_click',
-      timestamp: Date.now()
-    });
-  });
+
 }

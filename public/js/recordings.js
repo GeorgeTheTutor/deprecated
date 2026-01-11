@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+﻿document.addEventListener('DOMContentLoaded', function() {
     initializeRecordingsPage();
     
     if (typeof gtag !== 'undefined') {
@@ -17,7 +17,41 @@ function initializeRecordingsPage() {
     trackVideoInteractions();
     
     addKeyboardNavigation();
+
+    initializeParticles();
     
+    setupSidebarVideoPreviews();
+}
+
+function setupSidebarVideoPreviews() {
+    const videoItems = document.querySelectorAll('.video-item');
+    
+    videoItems.forEach(item => {
+        const videoPreview = item.querySelector('.sidebar-video-preview');
+        
+        if (videoPreview) {
+            item.addEventListener('mouseenter', () => {
+                videoPreview.play().catch(() => {});
+            });
+            
+            item.addEventListener('mouseleave', () => {
+                videoPreview.pause();
+                videoPreview.currentTime = 0;
+            });
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && window.innerWidth <= 768) {
+                        videoPreview.play().catch(() => {});
+                    } else {
+                        videoPreview.pause();
+                    }
+                });
+            }, { threshold: 0.5 });
+            
+            observer.observe(item);
+        }
+    });
 }
 
 function addScrollAnimations() {
@@ -47,6 +81,7 @@ function initializeVideoSwitching() {
     const mainVideoTitle = document.getElementById('mainVideoTitle');
     const mainVideoDescription = document.getElementById('mainVideoDescription');
     const mainVideoDuration = document.getElementById('mainVideoDuration');
+    const mainVideoInstructors = document.getElementById('mainVideoInstructors');
     
     videoItems.forEach(item => {
         item.addEventListener('click', function() {
@@ -54,18 +89,22 @@ function initializeVideoSwitching() {
             
             this.classList.add('active');
             
-            const videoId = this.getAttribute('data-video-id');
+            const videoUrl = this.getAttribute('data-video-url');
             const title = this.getAttribute('data-title');
             const description = this.getAttribute('data-description');
             const duration = this.getAttribute('data-duration');
+            const instructors = this.getAttribute('data-instructors');
             
-            mainVideoFrame.src = `https://drive.google.com/file/d/${videoId}/preview?usp=embed_facebook`;
-            mainVideoFrame.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-presentation');
-            mainVideoFrame.setAttribute('allow', 'autoplay; fullscreen');
-            mainVideoFrame.setAttribute('allowfullscreen', '');
+            const source = mainVideoFrame.querySelector('source');
+            source.src = videoUrl;
+            mainVideoFrame.load();
+            
             mainVideoTitle.textContent = title;
             mainVideoDescription.textContent = description;
             mainVideoDuration.innerHTML = `<i class="fas fa-clock"></i> ${duration}`;
+            if (mainVideoInstructors) {
+                mainVideoInstructors.innerHTML = `<i class="fas fa-user"></i> ${instructors}`;
+            }
             
             if (typeof gtag !== 'undefined') {
                 gtag('event', 'video_switch', {
@@ -306,4 +345,66 @@ function formatDuration(seconds) {
 
 function getVideoThumbnail(videoId) {
     return `https://drive.google.com/thumbnail?id=${videoId}&sz=w320`;
+}
+
+function initializeParticles() {
+    if (typeof tsParticles === 'undefined') return;
+
+    const particleColors = ['#FFFFFF', '#FF0000', '#F5F5DC', '#EEDC82', '#DEB887'];
+    const linkColor = '#f81f01';
+    
+    tsParticles.load("tsparticles", {
+        fullScreen: { enable: false },
+        fpsLimit: 60,
+        interactivity: {
+            events: {
+                onClick: { enable: true, mode: "push" },
+                onHover: { enable: true, mode: "repulse" },
+                resize: true
+            },
+            modes: {
+                push: { quantity: 4 },
+                repulse: { distance: 150, duration: 0.6 }
+            }
+        },
+        particles: {
+            number: { 
+                value: 120,
+                density: { enable: true, value_area: 800 } 
+            },
+            color: { value: particleColors },
+            shape: { type: "circle" },
+            opacity: { 
+                value: 0.6,
+                random: true,
+                anim: {
+                    enable: true,
+                    speed: 0.5,
+                    opacity_min: 0.3
+                }
+            },
+            size: { 
+                value: 4,
+                random: true,
+                anim: {
+                    enable: true,
+                    speed: 2,
+                    size_min: 2
+                }
+            },
+            links: { 
+                enable: true, 
+                distance: 150, 
+                color: linkColor,
+                opacity: 0.4, 
+                width: 1.5
+            },
+            move: {
+                enable: true,
+                speed: 1,
+                outModes: { default: "out" }
+            }
+        },
+        detectRetina: true
+    });
 }
